@@ -1,11 +1,15 @@
 const welcomeDream = document.querySelector('.welcomeDream')
 setTimeout(()=>{
+    welcomeDream.classList.add('tracking-in-expand')
+},900)
+setTimeout(()=>{
     welcomeDream.classList.add('text-flicker-in-glow')
-},4700)
+},5600)
 
 const getStartedBtn = document.querySelector('.getStarted')
-getStartedBtn.addEventListener('click',()=>{
-    alert(`What's up`)
+getStartedBtn.addEventListener('click',(e)=>{
+    e.preventDefault()
+  window.location.href = './Html/dreamDrip_Signup.html'
 })
 const signIn = document.querySelector('.signIn')
 signIn.addEventListener('click',()=>{
@@ -13,6 +17,7 @@ signIn.addEventListener('click',()=>{
 })
 const getStartedBtn2 = document.querySelector('.getStartedBelow')
 
-getStartedBtn2.addEventListener('click',()=>{
- alert('perfect')
+getStartedBtn2.addEventListener('click',(e)=>{
+    e.preventDefault()
+    window.location.href = './Html/dreamDrip_Signup.html'
 })
