@@ -24,9 +24,9 @@
   font-weight: 490;
 }
 .tracking-in-expand {
-  -webkit-animation: tracking-in-expand 4.5s cubic-bezier(0.215, 0.61, 0.355, 1)
+  -webkit-animation: tracking-in-expand 5s cubic-bezier(0.215, 0.61, 0.355, 1)
     both;
-  animation: tracking-in-expand 4.5s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  animation: tracking-in-expand 5s cubic-bezier(0.215, 0.61, 0.355, 1) both;
 }
 
 @-webkit-keyframes tracking-in-expand {

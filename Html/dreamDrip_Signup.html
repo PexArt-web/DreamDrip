@@ -17,15 +17,29 @@
     <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body>
-    <div class="container-fluid bg-light text-dark wrapper">
-      <div class="d-grid gap-2 col-6 mx-auto signUpwrapper scale-in-center">
+    <div class="container-fluid bg-light text-dark wrapper scale-in-center">
+     <div class="loginIcons mb-4">
+      <img
+      src="../DreamDrip_media/undraw_Mobile_login_re_9ntv.png"
+      class="img-fluid mobile_login loginIcon rounded mt-5"
+      alt=""
+    />
+    <img
+      src="../DreamDrip_media/undraw_secure_login_pdn4.png"
+      class="img-fluid loginIcon secure_login rounded mt-5"
+      alt=""
+    />
+     </div>
+      <div class="d-grid gap-2 col-6 mx-auto signUpwrapper">
         <button class="btn btn-secondary gitBtn" type="button">
           Sign Up With Github
         </button>
         <button class="btn btn-secondary twitterBtn" type="button">
           Sign Up With Twitter
         </button>
-        <button class="btn btn-secondary google" type="button">Sign Up With Google</button>
+        <button class="btn btn-secondary google" type="button">
+          Sign Up With Google
+        </button>
       </div>
     </div>
     <script
@@ -33,6 +47,7 @@
       type="module"
     ></script>
   </body>
+  <script src="../Functions/dreamDripSignup.js"></script>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

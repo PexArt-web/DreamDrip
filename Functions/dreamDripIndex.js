@@ -1,10 +1,12 @@
 const welcomeDream = document.querySelector('.welcomeDream')
+welcomeDream.style.display = 'none'
 setTimeout(()=>{
+    welcomeDream.style.display = 'block'
     welcomeDream.classList.add('tracking-in-expand')
-},900)
+},1100)
 setTimeout(()=>{
     welcomeDream.classList.add('text-flicker-in-glow')
-},5600)
+},5800)
 
 const getStartedBtn = document.querySelector('.getStarted')
 getStartedBtn.addEventListener('click',(e)=>{
