@@ -6,13 +6,16 @@ import {
   GithubAuthProvider,
   TwitterAuthProvider,
   GoogleAuthProvider,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getFirestore, doc, collection, setDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDVSn-9lFGGk3sSmrNzpd7kL2SsI6ECBwc",
+  apiKey: "AIzaSyCqn_5Swsr7PAnGz1Y2QtAnqyP5-i4bBFE",
   authDomain: "dreamdrip-a0922.firebaseapp.com",
   projectId: "dreamdrip-a0922",
   storageBucket: "dreamdrip-a0922.appspot.com",
@@ -23,10 +26,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// initialize firestore
+const db = getFirestore(app);
+const usernameRef = collection(db, 'Blog_users_username')
 const auth = getAuth();
 const provider = new GithubAuthProvider();
 
-
+const usernameWrapper = document.querySelector('.usernameWrapper')
+usernameWrapper.style.display = 'none'
+const wrapper = document.querySelector('.wrapper')
 /** Git sign in */
 const gitBtn = document.querySelector(".gitBtn");
 gitBtn.addEventListener("click", async (e) => {
@@ -44,6 +52,8 @@ gitBtn.addEventListener("click", async (e) => {
         console.log(result, 'git result');
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+        usernameWrapper.style.display = 'block'
+        wrapper.style.display = 'none'
       })
       .catch((error) => {
         // Handle Errors here.
@@ -83,6 +93,8 @@ twitterBtn.addEventListener("click", async (e) => {
         console.log(user, "user");
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+        usernameWrapper.style.display = 'block'
+        wrapper.style.display = 'none'
       })
       .catch((error) => {
         console.log(error);
@@ -121,6 +133,8 @@ googleBtn.addEventListener('click',async(e)=>{
       // ...
       console.log(result,'result');
       console.log(user, 'user');
+      usernameWrapper.style.display = 'block'
+      wrapper.style.display = 'none'
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -131,9 +145,34 @@ googleBtn.addEventListener('click',async(e)=>{
       const credential = GoogleAuthProvider.credentialFromError(error);
       console.log(error, 'error');
       // ...
+      
     });
   } catch (error) {
     
   }
+}) 
+const nextBtn = document.querySelector('.nextBtn')
+onAuthStateChanged(auth, (user)=>{
+  if (user) {
+    nextBtn.addEventListener('click',async(e)=>{
+      e.preventDefault()
+      nextBtn.innerHTML =`<div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>`
+    const username = document.querySelector('.user').value
+      const  docRef = doc(usernameRef, user.uid )
+      try {
+        const createNewDoc = await setDoc(docRef,{
+          username
+        })
+      } catch (error) {
+        console.log(error);
+      }finally{
+        console.log('saved');
+        nextBtn.innerHTML = `Next`
+      }
+    })
+  }
+  
 })
 
