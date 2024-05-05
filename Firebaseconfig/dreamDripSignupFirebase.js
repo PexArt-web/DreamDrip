@@ -6,9 +6,15 @@ import {
   GithubAuthProvider,
   TwitterAuthProvider,
   GoogleAuthProvider,
-  onAuthStateChanged
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-import { getFirestore, doc, collection, setDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import {
+  getFirestore,
+  doc,
+  collection,
+  setDoc,
+} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -28,13 +34,13 @@ const app = initializeApp(firebaseConfig);
 
 // initialize firestore
 const db = getFirestore(app);
-const usernameRef = collection(db, 'Blog_users_username')
+const usernameRef = collection(db, "Blog_users_username");
 const auth = getAuth();
 const provider = new GithubAuthProvider();
 
-const usernameWrapper = document.querySelector('.usernameWrapper')
-usernameWrapper.style.display = 'none'
-const wrapper = document.querySelector('.wrapper')
+const usernameWrapper = document.querySelector(".usernameWrapper");
+usernameWrapper.style.display = "none";
+const wrapper = document.querySelector(".wrapper");
 /** Git sign in */
 const gitBtn = document.querySelector(".gitBtn");
 gitBtn.addEventListener("click", async (e) => {
@@ -48,12 +54,12 @@ gitBtn.addEventListener("click", async (e) => {
 
         // The signed-in user info.
         const user = result.user;
-        console.log(user, 'user details');
-        console.log(result, 'git result');
+        console.log(user, "user details");
+        console.log(result, "git result");
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-        usernameWrapper.style.display = 'block'
-        wrapper.style.display = 'none'
+        usernameWrapper.style.display = "block";
+        wrapper.style.display = "none";
       })
       .catch((error) => {
         // Handle Errors here.
@@ -63,11 +69,13 @@ gitBtn.addEventListener("click", async (e) => {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GithubAuthProvider.credentialFromError(error);
-        console.log(error, 'git');
-        console.log(credential, 'credential');
+        console.log(error, "git");
+        console.log(credential, "credential");
         // ...
       });
-  } catch (error) {console.log(error);}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // Twitter sign in
@@ -93,8 +101,8 @@ twitterBtn.addEventListener("click", async (e) => {
         console.log(user, "user");
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-        usernameWrapper.style.display = 'block'
-        wrapper.style.display = 'none'
+        usernameWrapper.style.display = "block";
+        wrapper.style.display = "none";
       })
       .catch((error) => {
         console.log(error);
@@ -116,63 +124,94 @@ twitterBtn.addEventListener("click", async (e) => {
 
 /** Sign in With Google */
 
-const googleBtn = document.querySelector('.google')
-const google_provider = new GoogleAuthProvider()
+const googleBtn = document.querySelector(".google");
+const google_provider = new GoogleAuthProvider();
 
-googleBtn.addEventListener('click',async(e)=>{
-  e.preventDefault()
+googleBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
   try {
     const google_signIn = await signInWithPopup(auth, google_provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-      console.log(result,'result');
-      console.log(user, 'user');
-      usernameWrapper.style.display = 'block'
-      wrapper.style.display = 'none'
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      console.log(error, 'error');
-      // ...
-      
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        console.log(result, "result");
+        console.log(user, "user");
+        usernameWrapper.style.display = "block";
+        wrapper.style.display = "none";
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(error, "error");
+        // ...
+      });
+  } catch (error) {}
+});
+/*sign in Email and Password*/
+
+const emailsignUpBtn = document.querySelector(".emailSignup");
+emailsignUpBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const email = document.querySelector(".email").value;
+  const password = document.querySelector(".password").value;
+  console.log(email, password, "new setup");
+
+  if (email == "" || password == "") {
+    return;
+  }
+  emailsignUpBtn.disabled = true;
+  emailsignUpBtn.innerHTML = `
+  <div class="spinner-border text-light" role="status">
+  <span class="visually-hidden">Loading...</span>
+  </div>`;
+  try {
+    const creatUserTask = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+      console.log('logged in');
     });
   } catch (error) {
-    
+    console.log(error);
+  } finally {
+    emailsignUpBtn.innerHTML = `Sign up`;
+    emailsignUpBtn.disabled = false;
   }
-}) 
-const nextBtn = document.querySelector('.nextBtn')
-onAuthStateChanged(auth, (user)=>{
+});
+//
+const nextBtn = document.querySelector(".nextBtn");
+onAuthStateChanged(auth, (user) => {
   if (user) {
-    nextBtn.addEventListener('click',async(e)=>{
-      e.preventDefault()
-      nextBtn.innerHTML =`<div class="spinner-border text-light" role="status">
+    nextBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
       <span class="visually-hidden">Loading...</span>
-    </div>`
-    const username = document.querySelector('.user').value
-      const  docRef = doc(usernameRef, user.uid )
+    </div>`;
+      const username = document.querySelector(".user").value;
+      const docRef = doc(usernameRef, user.uid);
       try {
-        const createNewDoc = await setDoc(docRef,{
-          username
-        })
+        const createNewDoc = await setDoc(docRef, {
+          username,
+        });
       } catch (error) {
         console.log(error);
-      }finally{
-        console.log('saved');
-        nextBtn.innerHTML = `Next`
+      } finally {
+        console.log("saved");
+        nextBtn.innerHTML = `Next`;
       }
-    })
+    });
   }
-  
-})
-
+});
