@@ -101,4 +101,17 @@
     opacity: 1;
   }
 }
+@media only screen and (min-width:320px){
+  .gitBtn, .twitterBtn, .google, .divider{
+    display: none;
+  }
+  .emailSignup{
+    margin-bottom: 45px;
+  }
+}
+@media only screen and (min-width:1024px) {
+  .gitBtn, .twitterBtn, .google, .divider{
+    display: block;
+  }
+}
 

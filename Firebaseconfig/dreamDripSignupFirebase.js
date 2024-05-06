@@ -12,7 +12,7 @@ import {
 import {
   getFirestore,
   doc,
-  collection,
+  collection, 
   setDoc,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
@@ -58,6 +58,8 @@ gitBtn.addEventListener("click", async (e) => {
         console.log(result, "git result");
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+        const body = document.querySelector('body')
+        body.classList.add('bg-dark')
         usernameWrapper.style.display = "block";
         wrapper.style.display = "none";
       })
@@ -101,6 +103,8 @@ twitterBtn.addEventListener("click", async (e) => {
         console.log(user, "user");
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+        const body = document.querySelector('body')
+        body.classList.add('bg-dark')
         usernameWrapper.style.display = "block";
         wrapper.style.display = "none";
       })
@@ -141,6 +145,8 @@ googleBtn.addEventListener("click", async (e) => {
         // ...
         console.log(result, "result");
         console.log(user, "user");
+        const body = document.querySelector('body')
+        body.classList.add('bg-dark')
         usernameWrapper.style.display = "block";
         wrapper.style.display = "none";
       })
@@ -183,6 +189,10 @@ emailsignUpBtn.addEventListener("click", async (e) => {
       const user = userCredential.user;
       console.log(user);
       console.log('logged in');
+      const body = document.querySelector('body')
+      body.classList.add('bg-dark')
+      usernameWrapper.style.display = "block";
+      wrapper.style.display = "none";
     });
   } catch (error) {
     console.log(error);
