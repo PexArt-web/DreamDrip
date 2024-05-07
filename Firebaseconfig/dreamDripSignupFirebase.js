@@ -62,6 +62,8 @@ gitBtn.addEventListener("click", async (e) => {
         body.innerHTML = ``
         body.innerHTML = `
         <div class="container-fluid bg-dark usernameWrapper slide-in-right">
+        <p class = 'account-alert'>
+      </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center">Set Up your Username</p>
         <input type="text" class="user text-danger">
@@ -93,7 +95,15 @@ gitBtn.addEventListener("click", async (e) => {
                 const createNewDoc = await setDoc(docRef, {
                   username,
                 });
-                window.location.href = `../index.html`
+
+                const account_Alert = document.querySelector('.account-alert')
+                  account_Alert.innerHTML = ` <div class="alert alert-success" role="alert">
+                  Account Creation Successful, we're redirecting you to sign-in page to ensure security of your account, Please verify your email and start exploring our services, Welcome Aboard!
+                </div>`
+                setTimeout(()=>{
+                  window.location.href = `../index.html`
+                },6000)
+               
               } catch (error) {
                 console.log(error);
               } finally {
@@ -150,6 +160,8 @@ twitterBtn.addEventListener("click", async (e) => {
         body.innerHTML = ``
         body.innerHTML = `
         <div class="container-fluid bg-dark usernameWrapper slide-in-right">
+        <p class = 'account-alert'>
+      </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center">Set Up your Username</p>
         <input type="text" class="user text-danger">
@@ -180,7 +192,14 @@ twitterBtn.addEventListener("click", async (e) => {
                 const createNewDoc = await setDoc(docRef, {
                   username,
                 });
-                window.location.href = `../index.html`
+                const account_Alert = document.querySelector('.account-alert')
+                  account_Alert.innerHTML = ` <div class="alert alert-success" role="alert">
+                  Account Creation Successful, we're redirecting you to sign-in page to ensure security of your account, Please verify your email and start exploring our services, Welcome Aboard!
+                </div>`
+                setTimeout(()=>{
+                  window.location.href = `../index.html`
+                },6000)
+               
               } catch (error) {
                 console.log(error);
               } finally {
@@ -234,6 +253,8 @@ googleBtn.addEventListener("click", async (e) => {
         body.innerHTML = ``
         body.innerHTML = `
         <div class="container-fluid bg-dark usernameWrapper slide-in-right">
+        <p class = 'account-alert'>
+      </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center">Set Up your Username</p>
         <input type="text" class="user text-danger">
@@ -262,7 +283,14 @@ googleBtn.addEventListener("click", async (e) => {
                 const createNewDoc = await setDoc(docRef, {
                   username,
                 });
-                window.location.href = `../index.html`
+                const account_Alert = document.querySelector('.account-alert')
+                  account_Alert.innerHTML = ` <div class="alert alert-success" role="alert">
+                  Account Creation Successful, we're redirecting you to sign-in page to ensure security of your account, Please verify your email and start exploring our services, Welcome Aboard!
+                </div>`
+                setTimeout(()=>{
+                  window.location.href = `../index.html`
+                },6000)
+               
               } catch (error) {
                 console.log(error);
               } finally {
@@ -348,6 +376,8 @@ emailsignUpBtn.addEventListener("click", async (e) => {
       // wrapper.style.display = "none";
       body.innerHTML = ''
       body.innerHTML = `<div class="container-fluid bg-dark   usernameWrapper slide-in-right">
+      <p class = 'account-alert'>
+      </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center">Set Up your Username</p>
         <input type="text" class="user text-danger">
@@ -377,7 +407,15 @@ emailsignUpBtn.addEventListener("click", async (e) => {
             const createNewDoc = await setDoc(docRef, {
               username,
             });
-            window.location.href = `../index.html`
+
+            const account_Alert = document.querySelector('.account-alert')
+                  account_Alert.innerHTML = ` <div class="alert alert-success" role="alert">
+                  Account Creation Successful, we're redirecting you to sign-in page to ensure security of your account, Please verify your email and start exploring our services, Welcome Aboard!
+                </div>`
+                setTimeout(()=>{
+                  window.location.href = `../index.html`
+                },6000)
+               
           } catch (error) {
             console.log(error);
           } finally {
