@@ -38,8 +38,6 @@ const usernameRef = collection(db, "Blog_users_username");
 const auth = getAuth();
 const provider = new GithubAuthProvider();
 
-const nextBtn = document.querySelector(".nextBtn");
-
 /** Git sign in */
 const gitBtn = document.querySelector(".gitBtn");
 gitBtn.addEventListener("click", async (e) => {
@@ -65,7 +63,7 @@ gitBtn.addEventListener("click", async (e) => {
         <p class = 'account-alert'>
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
-        <p class="text-center">Set Up your Username</p>
+        <p class="text-center text-light">Set Up your Username</p>
         <input type="text" class="user text-danger">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
@@ -163,7 +161,7 @@ twitterBtn.addEventListener("click", async (e) => {
         <p class = 'account-alert'>
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
-        <p class="text-center">Set Up your Username</p>
+        <p class="text-center text-light">Set Up your Username</p>
         <input type="text" class="user text-danger">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
@@ -256,7 +254,7 @@ googleBtn.addEventListener("click", async (e) => {
         <p class = 'account-alert'>
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
-        <p class="text-center">Set Up your Username</p>
+        <p class="text-center text-light">Set Up your Username</p>
         <input type="text" class="user text-danger">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
@@ -379,7 +377,7 @@ emailsignUpBtn.addEventListener("click", async (e) => {
       <p class = 'account-alert'>
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
-        <p class="text-center">Set Up your Username</p>
+        <p class="text-center text-light">Set Up your Username</p>
         <input type="text" class="user text-danger">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
