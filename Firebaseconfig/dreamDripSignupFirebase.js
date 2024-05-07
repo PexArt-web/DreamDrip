@@ -38,9 +38,8 @@ const usernameRef = collection(db, "Blog_users_username");
 const auth = getAuth();
 const provider = new GithubAuthProvider();
 
-const usernameWrapper = document.querySelector(".usernameWrapper");
-usernameWrapper.style.display = "none";
-const wrapper = document.querySelector(".wrapper");
+const nextBtn = document.querySelector(".nextBtn");
+
 /** Git sign in */
 const gitBtn = document.querySelector(".gitBtn");
 gitBtn.addEventListener("click", async (e) => {
@@ -60,8 +59,51 @@ gitBtn.addEventListener("click", async (e) => {
         // ...
         const body = document.querySelector('body')
         body.classList.add('bg-dark')
-        usernameWrapper.style.display = "block";
-        wrapper.style.display = "none";
+        body.innerHTML = ``
+        body.innerHTML = `
+        <div class="container-fluid bg-dark usernameWrapper slide-in-right">
+      <div class="user_name d-grid justify-content-center mt-3 mb-4">
+        <p class="text-center">Set Up your Username</p>
+        <input type="text" class="user text-danger">
+        <div class="d-grid col-6 mx-auto mt-2">
+          <button class="btn btn-danger nextBtn" type="click">Next</button>
+          
+        </div>
+      </div>
+    </div> 
+        `
+
+        // ///
+        const nextBtn = document.querySelector(".nextBtn");
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            nextBtn.addEventListener
+            ("click", async (e) => {
+              e.preventDefault();
+              const userInput = document.querySelector('.user')
+              if (userInput.value == '' ) {
+              return
+              }
+              nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>`;
+              const username = document.querySelector(".user").value;
+              const docRef = doc(usernameRef, user.uid);
+              try {
+                const createNewDoc = await setDoc(docRef, {
+                  username,
+                });
+                window.location.href = `../index.html`
+              } catch (error) {
+                console.log(error);
+              } finally {
+                console.log("saved");
+                nextBtn.innerHTML = `Next`;
+              }
+            });
+          }
+        });
+
       })
       .catch((error) => {
         // Handle Errors here.
@@ -105,8 +147,50 @@ twitterBtn.addEventListener("click", async (e) => {
         // ...
         const body = document.querySelector('body')
         body.classList.add('bg-dark')
-        usernameWrapper.style.display = "block";
-        wrapper.style.display = "none";
+        body.innerHTML = ``
+        body.innerHTML = `
+        <div class="container-fluid bg-dark usernameWrapper slide-in-right">
+      <div class="user_name d-grid justify-content-center mt-3 mb-4">
+        <p class="text-center">Set Up your Username</p>
+        <input type="text" class="user text-danger">
+        <div class="d-grid col-6 mx-auto mt-2">
+          <button class="btn btn-danger nextBtn" type="click">Next</button>
+          
+        </div>
+      </div>
+    </div> 
+        `
+
+        // ///
+        const nextBtn = document.querySelector(".nextBtn");
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            nextBtn.addEventListener("click", async (e) => {
+              e.preventDefault();
+              const userInput = document.querySelector('.user')
+              if (userInput.value == '' ) {
+              return
+              }
+              nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>`;
+              const username = document.querySelector(".user").value;
+              const docRef = doc(usernameRef, user.uid);
+              try {
+                const createNewDoc = await setDoc(docRef, {
+                  username,
+                });
+                window.location.href = `../index.html`
+              } catch (error) {
+                console.log(error);
+              } finally {
+                console.log("saved");
+                nextBtn.innerHTML = `Next`;
+              }
+            });
+          }
+        });
+
       })
       .catch((error) => {
         console.log(error);
@@ -147,8 +231,48 @@ googleBtn.addEventListener("click", async (e) => {
         console.log(user, "user");
         const body = document.querySelector('body')
         body.classList.add('bg-dark')
-        usernameWrapper.style.display = "block";
-        wrapper.style.display = "none";
+        body.innerHTML = ``
+        body.innerHTML = `
+        <div class="container-fluid bg-dark usernameWrapper slide-in-right">
+      <div class="user_name d-grid justify-content-center mt-3 mb-4">
+        <p class="text-center">Set Up your Username</p>
+        <input type="text" class="user text-danger">
+        <div class="d-grid col-6 mx-auto mt-2">
+          <button class="btn btn-danger nextBtn" type="click">Next</button>
+          
+        </div>
+      </div>
+    </div> 
+        `
+        const nextBtn = document.querySelector(".nextBtn");
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            nextBtn.addEventListener("click", async (e) => {
+              e.preventDefault();
+              const userInput = document.querySelector('.user')
+              if (userInput.value == '' ) {
+              return
+              }
+              nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>`;
+              const username = document.querySelector(".user").value;
+              const docRef = doc(usernameRef, user.uid);
+              try {
+                const createNewDoc = await setDoc(docRef, {
+                  username,
+                });
+                window.location.href = `../index.html`
+              } catch (error) {
+                console.log(error);
+              } finally {
+                console.log("saved");
+                nextBtn.innerHTML = `Next`;
+              }
+            });
+          }
+        });
+
       })
       .catch((error) => {
         // Handle Errors here.
@@ -163,7 +287,36 @@ googleBtn.addEventListener("click", async (e) => {
       });
   } catch (error) {}
 });
+
+
 /*sign in Email and Password*/
+const emailAndpasswordWrapper = document.querySelector('.emailAndPasswordWrap')
+emailAndpasswordWrapper.innerHTML = ''
+const emailBtn = document.querySelector('.emailBtn')
+emailBtn.addEventListener('click',(e)=>{
+e.preventDefault()
+emailBtn.style.display = 'none'
+emailAndpasswordWrapper.innerHTML = `
+<button type="button" class="btn btn-danger mb-2 backDanger">Back</button>
+<div class="form-floating mb-3">
+<input type="email" class="form-control email" id="floatingInput" placeholder="name@example.com">
+<label for="floatingInput">Email address</label>
+</div>
+<div class="form-floating">
+<input type="password" class="form-control password" id="floatingPassword" placeholder="Password">
+<label for="floatingPassword">Password</label>
+</div>
+<button type="button" class="btn btn-secondary d-grid mt-3 mx-auto emailSignup justify-content-center">Sign Up</button>
+<hr class="divider"> 
+`
+const backBtn = document.querySelector('.backDanger')
+backBtn.addEventListener('click',async(e)=>{
+    e.preventDefault()
+    emailAndpasswordWrapper.innerHTML = ''
+    emailBtn.style.display = 'block'
+})
+
+/** signIn Operation */
 
 const emailsignUpBtn = document.querySelector(".emailSignup");
 emailsignUpBtn.addEventListener("click", async (e) => {
@@ -191,8 +344,49 @@ emailsignUpBtn.addEventListener("click", async (e) => {
       console.log('logged in');
       const body = document.querySelector('body')
       body.classList.add('bg-dark')
-      usernameWrapper.style.display = "block";
-      wrapper.style.display = "none";
+      // usernameWrapper.style.display = "block";
+      // wrapper.style.display = "none";
+      body.innerHTML = ''
+      body.innerHTML = `<div class="container-fluid bg-dark   usernameWrapper slide-in-right">
+      <div class="user_name d-grid justify-content-center mt-3 mb-4">
+        <p class="text-center">Set Up your Username</p>
+        <input type="text" class="user text-danger">
+        <div class="d-grid col-6 mx-auto mt-2">
+          <button class="btn btn-danger nextBtn" type="click">Next</button>
+          
+        </div>
+      </div>
+    </div>  `
+
+    // /////
+    const nextBtn = document.querySelector(".nextBtn");
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        nextBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const userInput = document.querySelector('.user')
+              if (userInput.value == '' ) {
+              return
+              }
+          nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>`;
+          const username = document.querySelector(".user").value;
+          const docRef = doc(usernameRef, user.uid);
+          try {
+            const createNewDoc = await setDoc(docRef, {
+              username,
+            });
+            window.location.href = `../index.html`
+          } catch (error) {
+            console.log(error);
+          } finally {
+            console.log("saved");
+            nextBtn.innerHTML = `Next`;
+          }
+        });
+      }
+    });
     });
   } catch (error) {
     console.log(error);
@@ -201,27 +395,12 @@ emailsignUpBtn.addEventListener("click", async (e) => {
     emailsignUpBtn.disabled = false;
   }
 });
+
+
+})
+
+
+
 //
-const nextBtn = document.querySelector(".nextBtn");
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    nextBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>`;
-      const username = document.querySelector(".user").value;
-      const docRef = doc(usernameRef, user.uid);
-      try {
-        const createNewDoc = await setDoc(docRef, {
-          username,
-        });
-      } catch (error) {
-        console.log(error);
-      } finally {
-        console.log("saved");
-        nextBtn.innerHTML = `Next`;
-      }
-    });
-  }
-});
+
+
