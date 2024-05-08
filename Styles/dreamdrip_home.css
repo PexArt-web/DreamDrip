@@ -2,7 +2,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 /* .foot_icon{
     display: flex;
-} */j
+} */
+.card{
+    /* position: relative; */
+    /* height: 100vh; */
+}
+
+.card-footer{
+    /* display: grid; */
+    /* justify-content: baseline; */
+    /* margin-top: 200px; */
+}
+.foot_icon li:hover{
+  background-color: #008000;
+  padding:  8px;
+  cursor: pointer;
+}

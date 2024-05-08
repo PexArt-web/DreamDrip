@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 import {
   getFirestore,
@@ -64,7 +65,7 @@ gitBtn.addEventListener("click", async (e) => {
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center text-light">Set Up your Username</p>
-        <input type="text" class="user text-danger">
+        <input type="text" class="user text-danger text-center">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
           
@@ -80,16 +81,22 @@ gitBtn.addEventListener("click", async (e) => {
             nextBtn.addEventListener
             ("click", async (e) => {
               e.preventDefault();
+              nextBtn.disabled = true
               const userInput = document.querySelector('.user')
               if (userInput.value == '' ) {
               return
               }
               nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
               <span class="visually-hidden">Loading...</span>
-            </div>`;
+            </div>`; 
               const username = document.querySelector(".user").value;
               const docRef = doc(usernameRef, user.uid);
               try {
+                const verify_email = await sendEmailVerification(auth.currentUser)
+                .then(()=>{console.log('email sent');})
+                .catch((error)=>{
+                  console.log(error);
+                })
                 const createNewDoc = await setDoc(docRef, {
                   username,
                 });
@@ -107,6 +114,7 @@ gitBtn.addEventListener("click", async (e) => {
               } finally {
                 console.log("saved");
                 nextBtn.innerHTML = `Next`;
+                nextBtn.disabled = false
               }
             });
           }
@@ -162,7 +170,7 @@ twitterBtn.addEventListener("click", async (e) => {
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center text-light">Set Up your Username</p>
-        <input type="text" class="user text-danger">
+        <input type="text" class="user text-danger text-center">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
           
@@ -177,6 +185,7 @@ twitterBtn.addEventListener("click", async (e) => {
           if (user) {
             nextBtn.addEventListener("click", async (e) => {
               e.preventDefault();
+              nextBtn.disabled = true
               const userInput = document.querySelector('.user')
               if (userInput.value == '' ) {
               return
@@ -187,6 +196,11 @@ twitterBtn.addEventListener("click", async (e) => {
               const username = document.querySelector(".user").value;
               const docRef = doc(usernameRef, user.uid);
               try {
+                const verify_email = await sendEmailVerification(auth.currentUser)
+                .then(()=>{console.log('email sent');})
+                .catch((error)=>{
+                  console.log(error);
+                })
                 const createNewDoc = await setDoc(docRef, {
                   username,
                 });
@@ -203,6 +217,7 @@ twitterBtn.addEventListener("click", async (e) => {
               } finally {
                 console.log("saved");
                 nextBtn.innerHTML = `Next`;
+                nextBtn.disabled = false
               }
             });
           }
@@ -255,7 +270,7 @@ googleBtn.addEventListener("click", async (e) => {
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center text-light">Set Up your Username</p>
-        <input type="text" class="user text-danger">
+        <input type="text" class="user text-danger text-center">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
           
@@ -268,6 +283,7 @@ googleBtn.addEventListener("click", async (e) => {
           if (user) {
             nextBtn.addEventListener("click", async (e) => {
               e.preventDefault();
+              nextBtn.disabled = true
               const userInput = document.querySelector('.user')
               if (userInput.value == '' ) {
               return
@@ -278,6 +294,11 @@ googleBtn.addEventListener("click", async (e) => {
               const username = document.querySelector(".user").value;
               const docRef = doc(usernameRef, user.uid);
               try {
+                const verify_email = await sendEmailVerification(auth.currentUser)
+                .then(()=>{console.log('email sent');})
+                .catch((error)=>{
+                  console.log(error);
+                })
                 const createNewDoc = await setDoc(docRef, {
                   username,
                 });
@@ -294,6 +315,7 @@ googleBtn.addEventListener("click", async (e) => {
               } finally {
                 console.log("saved");
                 nextBtn.innerHTML = `Next`;
+                nextBtn.disabled = 'false'
               }
             });
           }
@@ -364,10 +386,17 @@ emailsignUpBtn.addEventListener("click", async (e) => {
       auth,
       email,
       password
-    ).then((userCredential) => {
+    )
+    const verify_email = await sendEmailVerification(auth.currentUser)
+                .then(()=>{console.log('email sent');})
+                .catch((error)=>{
+                  console.log(error);
+                })
+    .then((userCredential) => {
       const user = userCredential.user;
       console.log(user);
       console.log('logged in');
+      
       const body = document.querySelector('body')
       body.classList.add('bg-dark')
       // usernameWrapper.style.display = "block";
@@ -378,7 +407,7 @@ emailsignUpBtn.addEventListener("click", async (e) => {
       </p>
       <div class="user_name d-grid justify-content-center mt-3 mb-4">
         <p class="text-center text-light">Set Up your Username</p>
-        <input type="text" class="user text-danger">
+        <input type="text" class="user text-danger text-center">
         <div class="d-grid col-6 mx-auto mt-2">
           <button class="btn btn-danger nextBtn" type="click">Next</button>
           
@@ -392,6 +421,7 @@ emailsignUpBtn.addEventListener("click", async (e) => {
       if (user) {
         nextBtn.addEventListener("click", async (e) => {
           e.preventDefault();
+          nextBtn.disabled = true
           const userInput = document.querySelector('.user')
               if (userInput.value == '' ) {
               return
@@ -419,6 +449,7 @@ emailsignUpBtn.addEventListener("click", async (e) => {
           } finally {
             console.log("saved");
             nextBtn.innerHTML = `Next`;
+            nextBtn.disabled = 'false'
           }
         });
       }
