@@ -26,7 +26,7 @@
             <a class="navbar-brand dreamDripheader">DreamDrip</a>
           </div>
           <form class="d-flex gap-2" role="search">
-            <p class="mt-2"><a href="./Html/dreamdripHome.html" class="signIn">Sign In</a></p>
+            <p class="mt-2">
             <button class="btn btn-outline-success getStarted" type="submit">
               Get Started
             </button>
@@ -37,10 +37,25 @@
         <h4 class="mt-5 mb-5  welcomeDream">
           Welcome to DreamDrip
         </h4>
+       
         <p>Dream more</p>
         <p>Dream Big</p>
         <p>Discover More Everday</p>
+        <a href=""></a>
 
+        <div class="float-end">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control email" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control password" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+            <div class="d-grid col-6 mx-auto mt-2">
+              <button class="btn btn-secondary signInBtn" type="button">Sign In</button>
+            </div>
+          </div>
+        </div>  
         <button
           class="btn btn-outline-success mt-5 mb-5 getStartedBelow"
           type="submit"
@@ -63,6 +78,7 @@
     
     <!-- <p>Dream more</p><span>Dream Big</span>
     <p>Discover more everyday</p> -->
+    <script src="./Firebaseconfig/dreamdripIndex_Config.js" type="module"></script>
     <script src="./Functions/dreamDripIndex.js"></script>
   </body>
   <script

@@ -13,10 +13,7 @@ getStartedBtn.addEventListener('click',(e)=>{
     e.preventDefault()
   window.location.href = './Html/dreamDrip_Signup.html'
 })
-const signIn = document.querySelector('.signIn')
-signIn.addEventListener('click',()=>{
-    alert('working perfect')
-})
+
 const getStartedBtn2 = document.querySelector('.getStartedBelow')
 
 getStartedBtn2.addEventListener('click',(e)=>{

@@ -44,6 +44,7 @@ const gitBtn = document.querySelector(".gitBtn");
 gitBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   try {
+    gitBtn.disabled = true
     const gitAuth = await signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
@@ -135,6 +136,8 @@ gitBtn.addEventListener("click", async (e) => {
       });
   } catch (error) {
     console.log(error);
+  }finally{
+    gitBtn.disabled = false
   }
 });
 
@@ -147,6 +150,7 @@ const twitterBtn = document.querySelector(".twitterBtn");
 twitterBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   try {
+    twitterBtn.disabled = true
     const twit = await signInWithPopup(auth, twitter_provider)
       .then((result) => {
         console.log(result, "result");
@@ -218,6 +222,7 @@ twitterBtn.addEventListener("click", async (e) => {
                 console.log("saved");
                 nextBtn.innerHTML = `Next`;
                 nextBtn.disabled = false
+                userInput.disabled = false
               }
             });
           }
@@ -239,6 +244,7 @@ twitterBtn.addEventListener("click", async (e) => {
     console.log("error", error);
   } finally {
     console.log("done");
+    twitterBtn.disabled = false
   }
 });
 
@@ -250,6 +256,7 @@ const google_provider = new GoogleAuthProvider();
 googleBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   try {
+    googleBtn.disabled = true
     const google_signIn = await signInWithPopup(auth, google_provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -288,6 +295,7 @@ googleBtn.addEventListener("click", async (e) => {
               if (userInput.value == '' ) {
               return
               }
+              userInput.disabled = true
               nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>`;
@@ -315,7 +323,8 @@ googleBtn.addEventListener("click", async (e) => {
               } finally {
                 console.log("saved");
                 nextBtn.innerHTML = `Next`;
-                nextBtn.disabled = 'false'
+                nextBtn.disabled = false
+                userInput.disabled = false
               }
             });
           }
@@ -333,7 +342,10 @@ googleBtn.addEventListener("click", async (e) => {
         console.log(error, "error");
         // ...
       });
-  } catch (error) {}
+  } catch (error) {
+  }finally{
+    googleBtn.disabled = false
+  }
 });
 
 
@@ -393,8 +405,8 @@ emailsignUpBtn.addEventListener("click", async (e) => {
                   console.log(error);
                 })
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
+      // const user = userCredential.user
+      console.log(userCredential);
       console.log('logged in');
       
       const body = document.querySelector('body')
@@ -422,10 +434,12 @@ emailsignUpBtn.addEventListener("click", async (e) => {
         nextBtn.addEventListener("click", async (e) => {
           e.preventDefault();
           nextBtn.disabled = true
+          // const userInput = document.querySelector('.user')
           const userInput = document.querySelector('.user')
               if (userInput.value == '' ) {
               return
               }
+              userInput.disabled = true
           nextBtn.innerHTML = `<div class="spinner-border text-light" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>`;
@@ -449,7 +463,8 @@ emailsignUpBtn.addEventListener("click", async (e) => {
           } finally {
             console.log("saved");
             nextBtn.innerHTML = `Next`;
-            nextBtn.disabled = 'false'
+            nextBtn.disabled = false
+            userInput.disabled = false
           }
         });
       }

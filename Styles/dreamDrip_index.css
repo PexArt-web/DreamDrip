@@ -374,3 +374,7 @@
     opacity: 1;
   }
 }
+.email, .password{
+  background-color: #000000;
+  color: #ffffff;
+}
