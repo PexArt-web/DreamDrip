@@ -25,8 +25,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
 const signInBtn = document.querySelector(".signInBtn");
-const email = document.querySelector(".email").value;
-const password = document.querySelector(".password").value;
 
 signInBtn.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -35,6 +33,9 @@ signInBtn.addEventListener("click", async (e) => {
   signInBtn.innerHTML = `<div class="spinner-border text-light" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>`
+  const email = document.querySelector(".email").value;
+  const password = document.querySelector(".password").value;
+
 
   try {
     const signInTask = await signInWithEmailAndPassword(auth, email, password)
@@ -43,7 +44,13 @@ signInBtn.addEventListener("click", async (e) => {
         const user = userCredential.user;
         // ...
         console.log(user);
-        // window.location.href = './Html/dreamdripHome.html' 
+        if (user.emailVerified
+          === true) {
+          window.location.href = './Html/dreamdripHome.html' 
+        }else{
+          alert('error')
+        }
+        
       })
       .catch((error) => {
         const errorCode = error.code;
