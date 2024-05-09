@@ -18,7 +18,7 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
   
   // initialize firestore
-  const db = getFirestore(app);
+  // const db = getFirestore(app);
 //   const usernameRef = collection(db, "Blog_users_username");
   const auth = getAuth();
 
@@ -34,3 +34,11 @@ const firebaseConfig = {
       // ...
     }
   });
+
+  const postBtn = document.querySelector('.postbtn')
+
+  postBtn.addEventListener('click',async(e)=>{
+    e.preventDefault()
+    const container = document.querySelector('.wrapp')
+   window.location.href = './dreamDrip_home.html'
+  })
