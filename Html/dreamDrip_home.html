@@ -17,27 +17,22 @@
     <link rel="stylesheet" href="../Styles/dreamDrip_home.css" />
   </head>
   <body class="container-fluid card bg-secondary">
-    <div class="container">
-      <div class="input-group card-body">
-        <div class="textOp d-flex align-items-center justify-content-center flex-wrap">
-          <textarea
-          class="textPost"
-          aria-label="With textarea"
-          autofocus
-        >
-        </textarea>
-      
-        
-        <span class="icons bg-light p-2 pt-3"> 
-          
-          <i class="bi bi-paperclip"></i> 
-          <i class="bi bi-send-fill"></i>
-        
+    <div class="mb-3 d-flex mt-2">
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+       autofocus></textarea>
+      <span class="icons bg-light p-2">
+        <i class="bi bi-paperclip"></i>
+        <input type="file" class="d-none files">
+        <i class="bi bi-send-fill"></i>
       </span>
-
-      </div>
-  
+      <p class="fileValue">
+        
+      </p>
     </div>
+
     <script
       src="../Firebaseconfig/dreamdrip_homeConfig.js"
       type="module"
