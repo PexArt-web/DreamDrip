@@ -3,3 +3,30 @@
     padding: 0;
     box-sizing: border-box;
 }
+.textPost{
+    /* position: relative; */
+    width:10rem;
+}
+/* .bi-paperclip{
+    position: absolute;
+    right: 10rem;
+    top: 1.8rem;
+} */
+/* @media only screen and (min-width:320px) {
+    .icons{
+        position: absolute;
+        right: 1.3rem;
+        top: 1.4rem;
+    }
+} */
+
+.container{
+    /* position: relative; */
+}
+.textPost{
+
+}
+ i{
+    height: 20vh;
+ }
+
