@@ -32,11 +32,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth();
 
 // initialize firestore
 const db = getFirestore(app);
 const usernameRef = collection(db, "Blog_users_username");
-const auth = getAuth();
 const provider = new GithubAuthProvider();
 
 /** Git sign in */
