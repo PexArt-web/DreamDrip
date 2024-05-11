@@ -2,7 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/fireba
 import {
   getFirestore,
   collection,
-  setDoc
+  setDoc,
+  doc
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
   getStorage, ref, uploadBytesResumable,
@@ -34,7 +35,7 @@ const auth = getAuth();
 const db = getFirestore(app);
 const storage = getStorage();
 const storageRef = ref(storage, 'postFile/posterFileURL.jpg');
-const colRef = collection(db, "users");
+// const colRef = collection(db, "users");
 
 
 
@@ -42,39 +43,72 @@ const sendBtn = document.querySelector(".sendBtn");
 
 sendBtn.addEventListener("click", async (e) => {
   e.preventDefault();
-  onAuthStateChanged(auth,async(user)=>{
-    sendBtn.disabled = true
-    sendBtn.innerHTML = `<div class="spinner-border text-light p-1" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>`
-    const [file] = document.querySelector('.files').files
-    try {
-      const uploadTask = await uploadBytesResumable(storageRef, file)
-        const gt = await getDownloadURL(storageRef).then((postFileURL) => {
-        console.log('File available at', postFileURL);
-      });
-      console.log(gt, 'here');
-      // 
-  
-      const docRef = doc(
-        colRef, user.uid,'usersPost', 'userscontent'
-      )
 
-      const textcontent = document.querySelector('.textcontent').value
-      const createNewDoc = await setDoc(docRef,{
-        textcontent,
-        
-      })
-    
-  
-      // 
-    } catch (error) {
-      console.log(error);
-    }finally{
-      sendBtn.disabled = false 
-      sendBtn.innerHTML = ` <i class=" bi bi-send-fill"></i>`
+  // Listen for changes in the authentication state
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      console.log("No user logged in");
+      return; // Stop the function if no user is logged in
     }
-  })
- 
-  //
+
+    // Disable the send button and show a loading spinner
+    sendBtn.disabled = true;
+    sendBtn.innerHTML = `<div class="spinner-border text-light p-1" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>`;
+
+    // Get the file from the file input
+    const [file] = document.querySelector('.files').files;
+    if (!file) {
+      console.log("No file selected");
+      sendBtn.disabled = false;
+      sendBtn.innerHTML = `<i class="bi bi-send-fill"></i>`;
+      return; // Stop the function if no file is selected
+    }
+
+    try {
+      // Upload the file to Firebase Storage
+     // Define the path and file name in storage
+     const fileType = file.type
+     let typeCategory = "unkonwn"
+     if (fileType.startsWith('image/')) {
+       typeCategory = 'images'
+     }else if (fileType.startsWith('video/')) {
+      typeCategory = 'video'
+     }else{
+      console.log('others', fileType);
+     }
+     console.log('file.type', typeCategory);
+      const uploadTask = await uploadBytesResumable(storageRef, file);
+    
+
+      // Get the download URL
+      const postFileURL = await getDownloadURL(uploadTask.ref);
+      console.log('File available at', postFileURL);
+
+      // Get text content from a textarea or input
+      const textcontent = document.querySelector('.textcontent').value;
+
+      // Reference to the Firestore collection and document
+      const docRef = doc(db, "usersPosts", user.uid); // Adjust collection and document path as needed
+
+      // Create or update the document with text content and file URL
+      const createNewDoc = await setDoc(docRef, {
+        textcontent,
+        typeCategory,
+        fileUrl: postFileURL // Save the file URL in Firestore
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+
+    } catch (error) {
+      console.error("Error uploading file or saving document: ", error);
+    } finally {
+      // Reset the send button
+      sendBtn.disabled = false;
+      sendBtn.innerHTML = `<i class="bi bi-send-fill"></i>`;
+    }
+  });
 });
+
+
