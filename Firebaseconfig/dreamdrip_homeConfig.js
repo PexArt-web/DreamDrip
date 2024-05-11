@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/fireba
 import {
   getFirestore,
   collection,
-  setDoc,
+  addDoc,
   doc
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
@@ -30,14 +30,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-
 // initialize firestore
 const db = getFirestore(app);
 const storage = getStorage();
 const storageRef = ref(storage, 'postFile/posterFileURL.jpg');
-// const colRef = collection(db, "users");
-
-
+const colRef = collection(db, "userscontent");
 
 const sendBtn = document.querySelector(".sendBtn");
 
@@ -90,16 +87,16 @@ sendBtn.addEventListener("click", async (e) => {
       const textcontent = document.querySelector('.textcontent').value;
 
       // Reference to the Firestore collection and document
-      const docRef = doc(db, "usersPosts", user.uid); // Adjust collection and document path as needed
+      // const docRef = doc(colRef, "usersPosts", user.uid,); // Adjust collection and document path as needed
 
       // Create or update the document with text content and file URL
-      const createNewDoc = await setDoc(docRef, {
+      const createNewDoc = await addDoc(colRef, {
         textcontent,
         typeCategory,
         fileUrl: postFileURL // Save the file URL in Firestore
       });
 
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written with ID: ", colRef.id);
 
     } catch (error) {
       console.error("Error uploading file or saving document: ", error);

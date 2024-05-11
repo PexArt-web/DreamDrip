@@ -11,6 +11,9 @@
     /* position: relative; */
     /* height: 100vh; */
 }
+.showPost{
+    height: 100vh;
+}
 
 .card-footer{
     /* display: grid; */
