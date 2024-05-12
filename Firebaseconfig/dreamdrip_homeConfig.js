@@ -71,7 +71,7 @@ sendBtn.addEventListener("click", async (e) => {
      if (fileType.startsWith('image/')) {
        typeCategory = 'images'
      }else if (fileType.startsWith('video/')) {
-      typeCategory = 'video'
+      typeCategory = 'videos'
      }else{
       console.log('others', fileType);
      }
@@ -84,7 +84,9 @@ sendBtn.addEventListener("click", async (e) => {
       console.log('File available at', postFileURL);
 
       // Get text content from a textarea or input
-      const textcontent = document.querySelector('.textcontent').value;
+      let textcontent = document.querySelector('.textcontent').value;
+      // preview value
+      let fileValueWrap = document.querySelector('.fileValueWrap')
 
       // Reference to the Firestore collection and document
       // const docRef = doc(colRef, "usersPosts", user.uid,); // Adjust collection and document path as needed
@@ -95,8 +97,9 @@ sendBtn.addEventListener("click", async (e) => {
         typeCategory,
         fileUrl: postFileURL // Save the file URL in Firestore
       });
-
       console.log("Document written with ID: ", colRef.id);
+      document.querySelector('.textcontent').value = ``
+      fileValueWrap.innerHTML = ''
 
     } catch (error) {
       console.error("Error uploading file or saving document: ", error);

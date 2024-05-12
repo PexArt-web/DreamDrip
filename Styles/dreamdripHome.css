@@ -11,8 +11,11 @@
     /* position: relative; */
     /* height: 100vh; */
 }
+
 .showPost{
-    height: 100vh;
+    height: 66vh;
+    max-height: 70vh;
+    overflow: auto;
 }
 
 .card-footer{

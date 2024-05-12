@@ -43,32 +43,47 @@ onAuthStateChanged(auth, async (user) => {
   // const postRef = doc(colRef)
   try {
     const querySnapshot = await getDocs(colRef);
-    const showPost = document.querySelector('.showPost')
-    showPost.innerHTML = ''
-querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  showPost.innerHTML += `<div class="card mb-2">
+    const usernameRef = await getDoc(docRef);
+    let user_name;
+    if (usernameRef.exists()) {
+      user_name = usernameRef.data().username;
+    }
+    const showPost = document.querySelector(".showPost");
+    showPost.innerHTML = "";
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      let mediaUrl;
+
+      if (doc.data().typeCategory == "images") {
+        mediaUrl = `<img src="${
+          doc.data().fileUrl
+        }" class="card-img-top postImg" alt="..." id='postImg'></img>`;
+      } else if (doc.data().typeCategory == "videos") {
+        mediaUrl = `<video src="${
+          doc.data().fileUrl
+        }" class="postVid"></video>`;
+      }else if(doc.data().typeCategory == 'unknown'){
+        mediaUrl = ''
+      }
+      showPost.innerHTML += `<div class="card mb-2">
   <nav class="navbar bg-body-tertiary">
       <div class="container-fluid userWrap">
           <a class="user_name" href="#">
               <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="20" height="20" class="d-inline-block align-text-center rounded-circle userImage ">
-              annonymous
+              ${user_name}
             </a>
       </div>
     </nav>
 <!-- <h5 class="card-title">Card title</h5> -->
 <p class="card-text">${doc.data().textcontent}</p>
-<img src="${doc.data().fileUrl}" class="card-img-top postImg" alt="...">
-<video src="" class="d-none postVid"></video>
+<p>${mediaUrl}</p>
 <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-</div>`
-  console.log(doc.data());
-});
+</div>`;
+      console.log(doc.data());
+    });
   } catch (error) {
     console.log(error);
   }
-  
-
 });
 
 const postBtn = document.querySelector(".postbtn");

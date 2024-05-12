@@ -5,11 +5,15 @@ clip.addEventListener('click',()=>{
     fileTrig.click()
 })
 
-const fileValue = document.querySelector('.fileValue')
-
+const fileValueWrap = document.querySelector('.fileValueWrap')
 fileTrig.addEventListener('change',(input)=>{
     const [file] = fileTrig.files
-    if (file) {
-        fileValue.src = URL.createObjectURL(file)
+    if (file && file.type.startsWith('image')) {
+
+        fileValueWrap.innerHTML = `<img class="fileValue img-fluid" src="${URL.createObjectURL(file)}" alt="">`
+        console.log(file.type, 'typeshit');
+
+    }else if(file && file.type.startsWith('video')){
+        fileValueWrap.innerHTML = `<video src="${URL.createObjectURL(file)}"></video>`
     }
 })
