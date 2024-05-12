@@ -33,7 +33,8 @@ const auth = getAuth();
 // initialize firestore
 const db = getFirestore(app);
 const storage = getStorage();
-const storageRef = ref(storage, 'postFile/posterFileURL.jpg');
+const timestamp = new Date().getTime()
+
 const colRef = collection(db, "userscontent");
 
 const sendBtn = document.querySelector(".sendBtn");
@@ -50,27 +51,28 @@ sendBtn.addEventListener("click", async (e) => {
 
     // Disable the send button and show a loading spinner
     sendBtn.disabled = true;
-    sendBtn.innerHTML = `<div class="spinner-border text-light p-1" role="status">
+    sendBtn.innerHTML = `<div class="spinner-border text-light sendSpinner" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>`;
 
     // Get the file from the file input
     const [file] = document.querySelector('.files').files;
-    if (!file) {
+    if (!file && document.querySelector('.textcontent').value == '') {
       console.log("No file selected");
       sendBtn.disabled = false;
       sendBtn.innerHTML = `<i class="bi bi-send-fill"></i>`;
       return; // Stop the function if no file is selected
     }
-
+    
+    const storageRef = ref(storage, `postFile/${timestamp}-${file.name}`);
     try {
       // Upload the file to Firebase Storage
      // Define the path and file name in storage
      const fileType = file.type
      let typeCategory = "unkonwn"
-     if (fileType.startsWith('image/')) {
+     if (fileType.startsWith('image')) {
        typeCategory = 'images'
-     }else if (fileType.startsWith('video/')) {
+     }else if (fileType.startsWith('video')) {
       typeCategory = 'videos'
      }else{
       console.log('others', fileType);

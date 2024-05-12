@@ -1,3 +1,6 @@
+
+// home configuration
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import {
   getAuth,
@@ -31,29 +34,29 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-//
-const auth = getAuth();
+
 //initialize firestore
 const db = getFirestore(app);
+const usernameRef = collection(db, "Blog_users_username");
+const auth = getAuth();
 
 onAuthStateChanged(auth, async (user) => {
-  const usernameRef = collection(db, "Blog_users_username");
   const docRef = doc(usernameRef, user.uid);
+  const colRef = collection(db, "userscontent");
+  // const postRef = doc(colRef)
   try {
-    const displayName = await getDoc(docRef);
-    const colRef = collection(db, "userscontent");
-    let user_name;
-    if (displayName.exists()) {
-      user_name = displayName.data().username;
-      console.log(user_name, "display name");
-    }
     const querySnapshot = await getDocs(colRef);
-    const show_post = document.querySelector('.showPost')
-    show_post.innerHTML = ''
+    const usernameRef = await getDoc(docRef);
+    let user_name;
+    if (usernameRef.exists()) {
+      user_name = usernameRef.data().username;
+    }
+    const showPost = document.querySelector(".showPost");
+    showPost.innerHTML = "";
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
       let mediaUrl = ''
+
       if (doc.data().typeCategory == "images") {
         mediaUrl = `<img src="${
           doc.data().fileUrl
@@ -63,28 +66,26 @@ onAuthStateChanged(auth, async (user) => {
           doc.data().fileUrl
         }" class="postVid"></video>`;
       }else if(doc.data().typeCategory == 'unknown'){
-        mediaUrl = null
+        mediaUrl = ''
       }
-     
-      show_post.innerHTML += `
-      <div class="card mb-2">
-      <nav class="navbar bg-body-tertiary">
-          <div class="container-fluid userWrap">
-              <a class="user_name" href="#">
-                  <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="20" height="20" class="d-inline-block align-text-center rounded-circle userImage d-none">
-                  ${user_name}
-                </a>
-          </div>
-        </nav>
-    <!-- <h5 class="card-title">Card title</h5> -->
-    <p class="card-text">${doc.data().textcontent}</p>
-    <p>${mediaUrl}</p>
-    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-    </div>
-      `
+      showPost.innerHTML += `<div class="card mb-2">
+  <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid userWrap">
+          <a class="user_name" href="#">
+              <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="20" height="20" class="d-inline-block align-text-center rounded-circle userImage ">
+              ${user_name}
+            </a>
+      </div>
+    </nav>
+<!-- <h5 class="card-title">Card title</h5> -->
+<p class="card-text">${doc.data().textcontent}</p>
+<p>${mediaUrl}</p>
+<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+</div>`;
+      console.log(doc.data());
     });
   } catch (error) {
-    console.log(error, "user error");
+    console.log(error);
   }
 });
 
@@ -96,3 +97,6 @@ postBtn.addEventListener("click", async (e) => {
   window.location.href = "./dreamDrip_home.html";
 });
  
+if(!file && document.querySelector('.textcontent').value == true){
+      
+}
