@@ -85,6 +85,7 @@ onAuthStateChanged(auth, async (user) => {
     <p>${mediaUrl}</p>
     <p class="card-text"><small class="text-body-secondary">Last updated ${timeUpdated}</small></p>
     </div>
+    <hr>
       `
 
       

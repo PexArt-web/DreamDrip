@@ -13,8 +13,8 @@
 }
 
 .showPost{
-    height: 90vh;
-    max-height: 80vh;
+    height: 75vh;
+    max-height: 75vh;
     /* overflow: auto; */
 }
 .showPost::-webkit-scrollbar{
@@ -23,8 +23,16 @@
 @media only screen and (min-width:320px) {
     .postbtn{
         position: fixed;
-        right: 6vh;
+        right: 7vh;
         bottom:24vh;
+    }
+    .footerbtns{
+        gap:1vh;
+    }
+}
+@media only screen and (min-width:768px) {
+    .footerbtns{
+        gap: 10vh;
     }
 }
 
@@ -33,11 +41,6 @@
     /* display: grid; */
     /* justify-content: baseline; */
     /* margin-top: 200px; */
-}
-.foot_icon li:hover{
-  background-color: #008000;
-  padding:  8px;
-  cursor: pointer;
 }
 .user_name{
     text-decoration: none; 
