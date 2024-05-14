@@ -13,13 +13,21 @@
 }
 
 .showPost{
-    height: 66vh;
-    max-height: 70vh;
+    height: 90vh;
+    max-height: 80vh;
     /* overflow: auto; */
 }
 .showPost::-webkit-scrollbar{
     display: none;
 }
+@media only screen and (min-width:320px) {
+    .postbtn{
+        position: fixed;
+        right: 6vh;
+        bottom:24vh;
+    }
+}
+
 
 .card-footer{
     /* display: grid; */
