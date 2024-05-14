@@ -3,7 +3,8 @@ import {
   getFirestore,
   collection,
   addDoc,
-  doc
+  doc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
   getStorage, ref, uploadBytesResumable,
@@ -90,6 +91,11 @@ sendBtn.addEventListener("click", async (e) => {
       // preview value
       let fileValueWrap = document.querySelector('.fileValueWrap')
 
+
+      // time posted 
+      // const timePosted = FieldValue.serverTimestamp()
+
+      // console.log(timePosted, 'this is the time posted');
       // Reference to the Firestore collection and document
       // const docRef = doc(colRef, "usersPosts", user.uid,); // Adjust collection and document path as needed
 
@@ -97,7 +103,8 @@ sendBtn.addEventListener("click", async (e) => {
       const createNewDoc = await addDoc(colRef, {
         textcontent,
         typeCategory,
-        fileUrl: postFileURL // Save the file URL in Firestore
+        fileUrl: postFileURL , // Save the file URL in Firestore
+        createdAt: serverTimestamp()
       });
       console.log("Document written with ID: ", colRef.id);
       document.querySelector('.textcontent').value = ``

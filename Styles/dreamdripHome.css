@@ -15,7 +15,10 @@
 .showPost{
     height: 66vh;
     max-height: 70vh;
-    overflow: auto;
+    /* overflow: auto; */
+}
+.showPost::-webkit-scrollbar{
+    display: none;
 }
 
 .card-footer{
@@ -27,4 +30,7 @@
   background-color: #008000;
   padding:  8px;
   cursor: pointer;
+}
+.user_name{
+    text-decoration: none; 
 }
