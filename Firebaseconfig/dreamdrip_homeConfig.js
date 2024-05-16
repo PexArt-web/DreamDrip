@@ -3,12 +3,15 @@ import {
   getFirestore,
   collection,
   addDoc,
+  getDoc,
   doc,
-  serverTimestamp
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
-  getStorage, ref, uploadBytesResumable,
-  getDownloadURL
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
 import {
   getAuth,
@@ -34,7 +37,7 @@ const auth = getAuth();
 // initialize firestore
 const db = getFirestore(app);
 const storage = getStorage();
-const timestamp = new Date().getTime()
+const timestamp = new Date().getTime();
 
 const colRef = collection(db, "userscontent");
 
@@ -57,42 +60,52 @@ sendBtn.addEventListener("click", async (e) => {
     </div>`;
 
     // Get the file from the file input
-    const [file] = document.querySelector('.files').files;
-    if (!file && document.querySelector('.textcontent').value == '') {
+    const [file] = document.querySelector(".files").files;
+    if (!file && document.querySelector(".textcontent").value == "") {
       console.log("No file selected");
       sendBtn.disabled = false;
       sendBtn.innerHTML = `<i class="bi bi-send-fill"></i>`;
       return; // Stop the function if no file is selected
     }
-    
+
     const storageRef = ref(storage, `postFile/${timestamp}-${file.name}`);
+
+
     try {
+      const usernameRef = collection(db, "Blog_users_username");
+      const docRef = doc(usernameRef, user.uid);
+      let user_name;
+      const displayName = await getDoc(docRef)
+      if (displayName.exists()) {
+        user_name = displayName.data().username;
+        console.log(user_name, "display name");
+      }else{
+        console.log('no user');
+      }
       // Upload the file to Firebase Storage
-     // Define the path and file name in storage
-     const fileType = file.type
-     let typeCategory = "unkonwn"
-     if (fileType.startsWith('image')) {
-       typeCategory = 'images'
-     }else if (fileType.startsWith('video')) {
-      typeCategory = 'videos'
-     }else{
-      console.log('others', fileType);
-     }
-     console.log('file.type', typeCategory);
+      // Define the path and file name in storage
+      const fileType = file.type;
+      let typeCategory = "unkonwn";
+      if (fileType.startsWith("image")) {
+        typeCategory = "images";
+      } else if (fileType.startsWith("video")) {
+        typeCategory = "videos";
+      } else {
+        console.log("others", fileType);
+      }
+      console.log("file.type", typeCategory);
       const uploadTask = await uploadBytesResumable(storageRef, file);
-    
 
       // Get the download URL
       const postFileURL = await getDownloadURL(uploadTask.ref);
-      console.log('File available at', postFileURL);
+      console.log("File available at", postFileURL);
 
       // Get text content from a textarea or input
-      let textcontent = document.querySelector('.textcontent').value;
+      let textcontent = document.querySelector(".textcontent").value;
       // preview value
-      let fileValueWrap = document.querySelector('.fileValueWrap')
+      let fileValueWrap = document.querySelector(".fileValueWrap");
 
-
-      // time posted 
+      // time posted
       // const timePosted = FieldValue.serverTimestamp()
 
       // console.log(timePosted, 'this is the time posted');
@@ -100,16 +113,27 @@ sendBtn.addEventListener("click", async (e) => {
       // const docRef = doc(colRef, "usersPosts", user.uid,); // Adjust collection and document path as needed
 
       // Create or update the document with text content and file URL
+      console.log(user_name, 'logged');
       const createNewDoc = await addDoc(colRef, {
+        user_name,
         textcontent,
         typeCategory,
-        fileUrl: postFileURL , // Save the file URL in Firestore
-        createdAt: serverTimestamp()
+        fileUrl: postFileURL, // Save the file URL in Firestore
+        createdAt: serverTimestamp(),
       });
-      console.log("Document written with ID: ", colRef.id);
-      document.querySelector('.textcontent').value = ``
-      fileValueWrap.innerHTML = ''
+      const alert = document.querySelector('.alertbox')
+      alert.innerHTML = ''
+      alert.innerHTML = `<div class="alert alert-primary text-center sentAlert mx-auto" role="alert">
+      Your post has been sent
+    </div>`
 
+    setTimeout(() => {
+      alert.innerHTML = ''
+    }, 3000);
+      
+      console.log("Document written with ID: ", colRef.id);
+      document.querySelector(".textcontent").value = ``;
+      fileValueWrap.innerHTML = "";
     } catch (error) {
       console.error("Error uploading file or saving document: ", error);
     } finally {
@@ -119,5 +143,3 @@ sendBtn.addEventListener("click", async (e) => {
     }
   });
 });
-
-

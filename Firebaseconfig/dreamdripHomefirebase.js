@@ -9,6 +9,7 @@ import {
   collection,
   getDoc,
   getDocs,
+  addDoc
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
   getStorage,
@@ -39,16 +40,17 @@ const auth = getAuth();
 const db = getFirestore(app);
 
 onAuthStateChanged(auth, async (user) => {
-  const usernameRef = collection(db, "Blog_users_username");
-  const docRef = doc(usernameRef, user.uid);
+  // const usernameRef = collection(db, "Blog_users_username");
+  // const docRef = doc(usernameRef, user.uid);
   try {
-    const displayName = await getDoc(docRef);
+    // const displayName = await getDoc(docRef);
     const colRef = collection(db, "userscontent");
-    let user_name;
-    if (displayName.exists()) {
-      user_name = displayName.data().username;
-      console.log(user_name, "display name");
-    }
+    // let user_name;
+    // if (displayName.exists()) {
+    //   user_name = displayName.data().username;
+    //   console.log(user_name, "display name");
+    // }
+    // const Postuser_n
     const querySnapshot = await getDocs(colRef);
     const show_post = document.querySelector('.showPost')
     show_post.innerHTML = ''
@@ -76,14 +78,15 @@ onAuthStateChanged(auth, async (user) => {
           <div class="container-fluid userWrap">
               <a class="user_name text-dark" href="#">
                   <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxANEA8NDQ8QDQ0NEBANDQ0NEBANDQ0NFREWFhURFRUYHSggGBolGxUVITEhJSk3Li4uFx8zOD8tNygtOisBCgoKDQ0NFQ0NFSsdFRktKy0tKy0rKystLSstKysrLSsrKzcrKysrLTcrKy0rLS0rKystKy0tKysrKysrKysrK//AABEIAKgBLAMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIH/8QAIhABAAEEAgICAwAAAAAAAAAAAOEBMUHwEdFRwWGBIaGx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDiRISIEhIKG3Nuoom/oQUg25TrKi0OfSU38kZRFpX2c+ickZUJXtOq5XvyB1U7TquV78gdHO/SY+vJ35+AXn0JGTbgc+jkjJt0Dn1/U59kZ+ScgEkZJyqlUWqSC7+kNv8AAAipt0BFQAqJUVolNuTkRSTbk5BQ5/vk53lRU2xt/g26C7YjBt0jKi7YjBtzn1kFnBGEpX3kjKIs4XbM8+8r35VTquF78M8/yuV78iHXhe/Hwzz+Pryvfn4AjBtjqmTneQIwbZKdZOfeUCME4OfWU595FWMJOFjKTlRdskm3JygBt/hNuoqG3TboKi7dNuKJVduld/INCEiKSEgvYi7dRUNubcFITbkZBSDbkZBaV9nPpKb+SMoLz7EnK7cQ6qdp1XK9+QOl39M4+vK7f4AgKdZNuoc+jn2kZNuKQSRknKBCV7WMpOVFSTbk5ADboCoCAgCiVVKgoAKSgI0gApQ26bdRpINuRlBSE25GVFINukZBZVmcrtwOqr2z1XK7cBWevK7f4AhUjJtwIEjK7cCCUjJOQVDbm3BUk26TkFQ24gAgAAolVSoKACiAKAIogCkBCgQEApCEAsiSoEiSoAigQIoECQAQSQSASACV7CvaCoICoAoCAqCVBoQBQAUQBSgUEUhCAUgRRpICAJVJAFSQBUEBUFCAgAgSAFSQQCQAQAABRFQBKqlQUAFEUAABdwgC7gjwECKm4AF3BuEIBa/efBuElQJ8G4RVDcG4RQNwbhBBY8G4QAjwbggA3BuBAVAFAAAQAABFSoKIoAAKIAoAKgAogIpCALIScgKyoCocgAACALAkAKgCgAAIACAoIAVCoAAKIAoIDQgCiAKCAoACoAKgAqACoAAABCAogCoAAACKgAACACiAKACiAKIoAACoAogCiKAIoAAAAAgCiAAAAICiAAACAAAAAAACgAAAoAAAAAAAAAAAAAAAAAAAIAAAAgAAAAA//9k=" alt="Logo" width="25" height="25" class="d-inline-block align-text-center rounded-circle userImage ">
-                  ${user_name}
+                  ${doc.data().user_name}
                 </a>
           </div>
         </nav>
+        <p class="card-text"><small class="text-body-secondary">Last updated ${timeUpdated}</small></p>
     <!-- <h5 class="card-title">Card title</h5> -->
     <p class="card-text">${doc.data().textcontent}</p>
     <p>${mediaUrl}</p>
-    <p class="card-text"><small class="text-body-secondary">Last updated ${timeUpdated}</small></p>
+    
     </div>
     <hr>
       `

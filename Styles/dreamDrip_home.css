@@ -13,6 +13,37 @@
 .sendSpinner{
     font-size: 10px;
 }
+@media only screen and (min-width:320px) {
+    .sentAlert{
+    /* width: 50vw; */
+    position: fixed;
+    height: 9vh;
+    transform: translate(9%, 8%);
+}
+}
+@media only screen and (min-width:375px) {
+    .sentAlert{
+    /* width: 50vw; */
+    position: fixed;
+    height: 9vh;
+    transform: translate(22%, 8%);
+}
+}
+@media only screen and (min-width:768px) {
+    .sentAlert{
+    width: 50vw;
+    position: fixed;
+    height: 9vh;
+    transform: translate(50%, 8%);
+}
+}
+
+
+/* .sentAlert{
+    width: 50vw;
+    position: fixed;
+    transform: translate(50%, 8%);
+} */
 
 
 
