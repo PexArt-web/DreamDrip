@@ -17,3 +17,10 @@ fileTrig.addEventListener('change',(input)=>{
         fileValueWrap.innerHTML = `<video src="${URL.createObjectURL(file)}"></video>`
     }
 })
+
+const back =  document.querySelector('.back')
+back.onclick = () =>{
+ 
+    window.location.href = './dreamdripHome.html'
+}
+

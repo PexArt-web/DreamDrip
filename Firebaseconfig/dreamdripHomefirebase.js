@@ -86,7 +86,11 @@ onAuthStateChanged(auth, async (user) => {
     <!-- <h5 class="card-title">Card title</h5> -->
     <p class="card-text">${doc.data().textcontent}</p>
     <p>${mediaUrl}</p>
-    
+    <div class = 'd-flex justify-content-between'>
+    <i class="bi bi-chat"></i>
+    <i class="bi bi-repeat"></i>
+    <i class="bi bi-heart"></i>
+    </div>
     </div>
     <hr>
       `
@@ -98,6 +102,19 @@ onAuthStateChanged(auth, async (user) => {
   } catch (error) {
     console.log(error, "user error");
   }
+
+  const biChat = document.querySelector('.bi-chat')
+  biChat.onclick=()=>{
+    alert('clicked')
+  }
+
+  const biHeart = document.querySelector('.bi-heart')
+
+  biHeart.onclick=()=>{
+    alert('clicked')
+  }
+
+
 });
 
 
