@@ -95,6 +95,9 @@ onAuthStateChanged(auth, async (user) => {
     <hr>
       `
 
+     
+
+
       
     ;
     });
@@ -102,18 +105,22 @@ onAuthStateChanged(auth, async (user) => {
   } catch (error) {
     console.log(error, "user error");
   }
+  const biChats = document.querySelectorAll('.bi-chat')
 
-  const biChat = document.querySelector('.bi-chat')
-  biChat.onclick=()=>{
-    alert('clicked')
-  }
-
-  const biHeart = document.querySelector('.bi-heart')
-
-  biHeart.onclick=()=>{
-    alert('clicked')
-  }
-
+  biChats.forEach((bichat, index)=>{
+    bichat.addEventListener('click',()=>{
+      alert(index)
+    })
+  })
+  
+    const biHearts = document.querySelectorAll ('.bi-heart')
+  
+ biHearts.forEach((biHeart, index)=>{
+  biHeart.addEventListener('click',()=>{
+    alert('heart clicked', index)
+  })
+ })
+  
 
 });
 
