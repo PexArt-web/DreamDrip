@@ -6,42 +6,46 @@ const url =  `https://newsapi.org/v2/everything?q=apple&from=2024-05-15&to=2024-
 
 let req = new Request(url)
 const showNews = document.querySelector('.displaynews')
-fetch(req)
-.then((response)=>{
-    return response.json();
-}).then((data)=>{
-    
-    console.log(data.articles , 'data');
-    data.articles.forEach((recieved)=>{
-         const timeRecieved = recieved.
-         publishedAt
-         const timeConvert = new Date(timeRecieved)
-         const timeReset = timeConvert.toLocaleTimeString()
-        showNews.innerHTML += `
-        <div class="card mb-3 d-flex" newsbody>
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="${
-                recieved.urlToImage}" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <a href='${recieved.url}'>
-              <h5 class="card-title">${recieved.title}</h5>
-              </a>
-              <p class="card-text">${recieved.description
-              }</p>
-              <p class="card-text"><small class="text-body-secondary">${timeReset}</small></p>
+async function fetchingNews(){
+  const newsRequest = await fetch(req)
+  .then((response)=>{
+      return response.json();
+  }).then((data)=>{
+      
+      console.log(data.articles , 'data');
+      data.articles.forEach((recieved)=>{
+           const timeRecieved = recieved.
+           publishedAt
+           const timeConvert = new Date(timeRecieved)
+           const timeReset = timeConvert.toLocaleTimeString()
+          showNews.innerHTML += `
+          <div class="card mb-3 d-flex" newsbody>
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="${
+                  recieved.urlToImage}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <a href='${recieved.url}'>
+                <h5 class="card-title">${recieved.title}</h5>
+                </a>
+                <p class="card-text">${recieved.description
+                }</p>
+                <p class="card-text"><small class="text-body-secondary">${timeReset}</small></p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-        `
-    })
-})
-.catch((error)=>{
-    console.log(error);
-})
+          `
+      })
+  })
+  .catch((error)=>{
+      console.log(error);
+  })
+}
+fetchingNews()
+
 
 
 

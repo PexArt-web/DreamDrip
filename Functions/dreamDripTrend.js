@@ -6,42 +6,47 @@ const url =  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${eventnumb
 
 let req = new Request(url)
 const showNews = document.querySelector('.displayTrends')
-fetch(req)
-.then((response)=>{
-    return response.json();
-}).then((data)=>{
-    
-    console.log(data.articles , 'data');
-    data.articles.forEach((recieved)=>{
-         const timeRecieved = recieved.
-         publishedAt
-         const timeConvert = new Date(timeRecieved)
-         const timeReset = timeConvert.toLocaleTimeString()
-        showNews.innerHTML += `
-        <div class="card mb-3 d-flex" newsbody>
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="${
-                recieved.urlToImage}" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <a href='${recieved.url}'>
-              <h5 class="card-title">${recieved.title}</h5>
-              </a>
-              <p class="card-text">${recieved.description
-              }</p>
-              <p class="card-text"><small class="text-body-secondary">${timeReset}</small></p>
+
+async function fetchingTrend(){
+  const trendRequest = await fetch(req)
+  .then((response)=>{
+      return response.json();
+  }).then((data)=>{
+      
+      console.log(data.articles , 'data');
+      data.articles.forEach((recieved)=>{
+           const timeRecieved = recieved.
+           publishedAt
+           const timeConvert = new Date(timeRecieved)
+           const timeReset = timeConvert.toLocaleTimeString()
+          showNews.innerHTML += `
+          <div class="card mb-3 d-flex" newsbody>
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="${
+                  recieved.urlToImage}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <a href='${recieved.url}'>
+                <h5 class="card-title">${recieved.title}</h5>
+                </a>
+                <p class="card-text">${recieved.description
+                }</p>
+                <p class="card-text"><small class="text-body-secondary">${timeReset}</small></p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-        `
-    })
-})
-.catch((error)=>{
-    console.log(error);
-})
+          `
+      })
+  })
+  .catch((error)=>{
+      console.log(error);
+  })
+}
+fetchingTrend()
+
 
 
 
