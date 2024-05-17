@@ -2,28 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
 }
-/* .foot_icon{
-    display: flex;
-} */
-.card{
-    /* position: relative; */
-    /* height: 100vh; */
+html{
+    scroll-behavior: smooth;
 }
-
-
 @media only screen and (min-width:320px) {
     .footerbtns{
         position: fixed;
         top: 88vh;
         gap: 2px;
         transform: translate(-4%);
-    }
-    .postbtn{
-        position: fixed;
-        top: 70vh;
-        right: 1rem;
     }
 }
 @media only screen and (min-width:375px) {
@@ -57,12 +45,4 @@
         gap: 90px;
         transform: translate(50%);
     }
-}
-.card-footer{
-    /* display: grid; */
-    /* justify-content: baseline; */
-    /* margin-top: 200px; */
-}
-.user_name{
-    text-decoration: none; 
 }
