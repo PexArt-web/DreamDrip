@@ -8,6 +8,7 @@ let req = new Request(url)
 const showNews = document.querySelector('.displayTrends')
 
 async function fetchingTrend(){
+ try {
   const trendRequest = await fetch(req)
   .then((response)=>{
       return response.json();
@@ -44,6 +45,9 @@ async function fetchingTrend(){
   .catch((error)=>{
       console.log(error);
   })
+ } catch (error) {
+  console.log(error);
+ }
 }
 fetchingTrend()
 

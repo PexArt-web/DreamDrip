@@ -7,7 +7,8 @@ const url =  `https://newsapi.org/v2/everything?q=apple&from=2024-05-15&to=2024-
 let req = new Request(url)
 const showNews = document.querySelector('.displaynews')
 async function fetchingNews(){
-  const newsRequest = await fetch(req)
+  try {
+    const newsRequest = await fetch(req)
   .then((response)=>{
       return response.json();
   }).then((data)=>{
@@ -43,6 +44,9 @@ async function fetchingNews(){
   .catch((error)=>{
       console.log(error);
   })
+  } catch (error) {
+    console.log(error);
+  }
 }
 fetchingNews()
 
