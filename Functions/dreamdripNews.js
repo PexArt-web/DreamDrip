@@ -1,8 +1,8 @@
 async function fetchingNews() {
-  const eventnumber = "9aa268453f6840ba49a75adbb6a4e3b6";
-  category = "general";
+  // const eventnumber = "9aa268453f6840ba49a75adbb6a4e3b6";
+  // category = "general";
   url =
-    ` https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=10&apikey=${eventnumber}`
+    `https://newsapi.org/v2/everything?q=bitcoin&apiKey=ae1061d8e1f54b529617ea64550460da`
   const showNews = document.querySelector(".displaynews");
   try {
     const request = await fetch(url)
@@ -11,6 +11,7 @@ async function fetchingNews() {
       })
       .then(function (data) {
         const articles = data.articles;
+        console.log('articles' , articles);
         for (let index = 0; index < articles.length; index++) {
           const timeRecieved = articles[index].publishedAt;
           const timeConvert = new Date(timeRecieved);
@@ -20,7 +21,7 @@ async function fetchingNews() {
         <div class="row g-0">
           <div class="col-md-4">
             <img src="${
-              articles[index]["image"]
+              articles[index]["urlToImage"]
             }" class="img-fluid rounded-start" alt="...">
           </div>
           <div class="col-md-8">
