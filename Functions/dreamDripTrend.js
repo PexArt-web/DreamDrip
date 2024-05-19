@@ -2,14 +2,13 @@
 
 const eventnumber = "ae1061d8e1f54b529617ea64550460da";
 
+
+// let req = new Request(url);
+const showNews = document.querySelector(".displayTrends");
 const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${eventnumber}`;
 
-let req = new Request(url);
-const showNews = document.querySelector(".displayTrends");
 
-async function fetchingTrend() {
-  try {
-    const trendRequest = await fetch(req)
+fetch(url)
       .then((response) => {
         return response.json();
       })
@@ -43,11 +42,6 @@ async function fetchingTrend() {
       .catch((error) => {
         console.log(error);
       });
-  } catch (error) {
-    console.log(error);
-  }
-}
-fetchingTrend();
 
 const homeBtn = document.querySelector(".homeBtn");
 homeBtn.onclick = () => {
