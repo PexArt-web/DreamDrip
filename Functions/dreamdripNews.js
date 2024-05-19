@@ -1,11 +1,8 @@
 async function fetchingNews() {
-  const eventnumber = "aaa3033b79a4e91680bfc58a429f221e";
+  const eventnumber = "9aa268453f6840ba49a75adbb6a4e3b6";
   category = "general";
   url =
-    "https://gnews.io/api/v4/top-headlines?category=" +
-    category +
-    "&lang=en&country=us&max=10&apikey=" +
-    eventnumber;
+    ` https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=10&apikey=${eventnumber}`
   const showNews = document.querySelector(".displaynews");
   try {
     const request = await fetch(url)
